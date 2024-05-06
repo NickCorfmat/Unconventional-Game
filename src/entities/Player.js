@@ -2,7 +2,6 @@
 Player Class
 
 */
-
 class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, "player");
@@ -22,6 +21,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     // should get the cursors (left, right keys, so on so forth)
     this.cursors = this.scene.input.keyboard.createCursorKeys();
+
+    // animations
+    createAnimations(this.scene.anims);
   }
 
   initEvents() {
@@ -35,11 +37,17 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     if (left.isDown) {
       this.setVelocityX(-this.playerSpeed);
+      this.setFlipX(true);
     } else if (right.isDown) {
       this.setVelocityX(this.playerSpeed);
+      this.setFlipX(false);
     } else {
       // no speed since player is idle
       this.setVelocityX(0);
     }
+
+    this.body.velocity.x !== 0
+      ? this.play("run", true)
+      : this.play("idle", true);
   }
 }
