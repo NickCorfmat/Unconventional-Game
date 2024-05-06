@@ -1,31 +1,30 @@
-// Code Practice: Surfy Game
-// Name: Alexander Halim
-// Date: 3/6/2024
-
-/*
-- Question Mechanic
-- Answering Mechanic (Clickable, Multi-choice Text)
-- Recommendation Mechanic (Given Result) 
-*/
 "use strict";
 
-let config = {
+const WIDTH = 1280;
+const HEIGHT = 600;
+const BIRD_POSITION = { x: WIDTH * 0.1, y: HEIGHT / 2 };
+
+const SHARED_CONFIG = {
+  width: WIDTH,
+  height: HEIGHT,
+  startPosition: BIRD_POSITION,
+};
+
+const Scenes = [Preload, Play];
+const createScene = (Scene) => new Scene(SHARED_CONFIG);
+const initScenes = () => Scenes.map(createScene);
+const config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 500,
-  render: {
-    pixelArt: true,
-  },
+  ...SHARED_CONFIG,
+  pixelArt: true,
   physics: {
     default: "arcade",
     arcade: {
       debug: true,
     },
   },
-  scene: [Play],
+
+  scene: initScenes(),
 };
 
 let game = new Phaser.Game(config);
-
-let cursors;
-let { height, width } = game.config;
