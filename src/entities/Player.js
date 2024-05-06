@@ -33,7 +33,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
   update() {
     // destructuring
-    const { left, right } = this.cursors;
+    // todo: remove space later (space is just for testing purposes since jumping is tied to the musical notes)
+    const { left, right, space } = this.cursors;
+    const onFloor = this.body.onFloor();
 
     if (left.isDown) {
       this.setVelocityX(-this.playerSpeed);
@@ -44,6 +46,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     } else {
       // no speed since player is idle
       this.setVelocityX(0);
+    }
+
+    if (space.isDown && onFloor) {
+      this.setVelocityY(-this.playerSpeed * 1.65);
     }
 
     this.body.velocity.x !== 0
