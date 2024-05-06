@@ -7,12 +7,9 @@ class Play extends Phaser.Scene {
     const map = this.createMap();
     const layers = this.createLayers(map);
 
-    this.player = this.createPlayer();
-    this.playerSpeed = 225;
-    this.physics.add.collider(this.player, layers.platformColliders);
+    const player = this.createPlayer();
 
-    // should get the cursors (left, right keys, so on so forth)
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.physics.add.collider(player, layers.platformColliders);
   }
 
   createMap() {
@@ -35,24 +32,7 @@ class Play extends Phaser.Scene {
   }
 
   createPlayer() {
-    const player = this.physics.add.sprite(100, 250, "player");
-    player.body.setGravityY(500);
-    player.setCollideWorldBounds(true);
-
-    return player;
-  }
-
-  update() {
-    // destructuring
-    const { left, right } = this.cursors;
-
-    if (left.isDown) {
-      this.player.setVelocityX(-this.playerSpeed);
-    } else if (right.isDown) {
-      this.player.setVelocityX(this.playerSpeed);
-    } else {
-      // no speed since player is idle
-      this.player.setVelocityX(0);
-    }
+    return new Player(this, 100, 250);
+    // return player;
   }
 }

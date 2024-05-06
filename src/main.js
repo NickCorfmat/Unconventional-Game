@@ -2,17 +2,18 @@
 
 const WIDTH = 1280;
 const HEIGHT = 600;
-const BIRD_POSITION = { x: WIDTH * 0.1, y: HEIGHT / 2 };
+const PLAYER_POSITION = { x: WIDTH * 0.1, y: HEIGHT / 2 }; // change later
 
 const SHARED_CONFIG = {
   width: WIDTH,
   height: HEIGHT,
-  startPosition: BIRD_POSITION,
+  startPosition: PLAYER_POSITION,
 };
 
 const Scenes = [Preload, Play];
 const createScene = (Scene) => new Scene(SHARED_CONFIG);
 const initScenes = () => Scenes.map(createScene);
+
 const config = {
   type: Phaser.AUTO,
   ...SHARED_CONFIG,
