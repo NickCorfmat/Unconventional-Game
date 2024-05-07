@@ -57,6 +57,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     if (onFloor) {
+      //console.log("on floor");
       this.jumpCount = 0;
     }
 
