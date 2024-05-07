@@ -9,6 +9,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
+    // Mixins
+    Object.assign(this, collidable);
+
     this.init();
     this.initEvents();
   }
@@ -16,7 +19,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   init() {
     this.currentCombo = "";
     this.scene.input.keyboard.on("keydown", this.handleKeyInput, this);
-    // todo: reminder to change these combos later
 
     this.gravity = 500;
     this.playerSpeed = 225;
