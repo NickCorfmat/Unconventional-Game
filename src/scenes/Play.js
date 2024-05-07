@@ -32,7 +32,7 @@ class Play extends Phaser.Scene {
   }
 
   createPlayer() {
-    return new Player(this, 100, 250);
+    return new Player(this, 100, 250).setScale(2);
     // return player;
   }
 }

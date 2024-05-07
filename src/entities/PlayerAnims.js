@@ -2,13 +2,12 @@
 << Animation Reference >>
 
 - idle: 0, 12
-- walk: 13, 20
-- attack1: 21-30
-- attack2: 31-40
-- attack3: 41-50
-- jump: 51-56
-- ouch/hit: 57-60
-- dead: 61-67
+- jump: 13, 20
+- attack1: 26
+- attack2: 39
+- attack3: 43
+- ouch/hit: 56
+- dead: 63
 */
 
 createAnimations = (anims) => {
@@ -30,5 +29,15 @@ createAnimations = (anims) => {
     }),
     frameRate: 10,
     repeat: -1,
+  });
+
+  anims.create({
+    key: "jump",
+    frames: anims.generateFrameNames("player", {
+      start: 67,
+      end: 70,
+    }),
+    frameRate: 2,
+    repeat: 1,
   });
 };

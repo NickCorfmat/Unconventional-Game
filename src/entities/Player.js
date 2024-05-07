@@ -16,6 +16,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   init() {
     this.gravity = 500;
     this.playerSpeed = 225;
+    this.jumpCount = 0;
+    this.consecJumps = 1;
     this.body.setGravityY(this.gravity);
     this.setCollideWorldBounds(true);
 
@@ -36,6 +38,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     // todo: remove space later (space is just for testing purposes since jumping is tied to the musical notes)
     const { left, right, space } = this.cursors;
     const onFloor = this.body.onFloor();
+    const isSpaceJustDown = Phaser.Input.Keyboard.JustDown(space);
 
     if (left.isDown) {
       this.setVelocityX(-this.playerSpeed);
@@ -48,12 +51,19 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       this.setVelocityX(0);
     }
 
-    if (space.isDown && onFloor) {
+    if (isSpaceJustDown && (onFloor || this.jumpCount < this.consecJumps)) {
       this.setVelocityY(-this.playerSpeed * 1.65);
+      this.jumpCount++;
     }
 
-    this.body.velocity.x !== 0
-      ? this.play("run", true)
-      : this.play("idle", true);
+    if (onFloor) {
+      this.jumpCount = 0;
+    }
+
+    onFloor
+      ? this.body.velocity.x !== 0
+        ? this.play("run", true)
+        : this.play("idle", true)
+      : this.play("jump", true);
   }
 }
