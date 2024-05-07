@@ -14,6 +14,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   init() {
+    this.currentCombo = "";
+    this.scene.input.keyboard.on("keydown", this.handleKeyInput, this);
+    // todo: reminder to change these combos later
+
     this.gravity = 500;
     this.playerSpeed = 225;
     this.jumpCount = 0;
@@ -26,6 +30,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     // animations
     createAnimations(this.scene.anims);
+
+    this.isMovingLeft = false;
+    this.isMovingRight = false;
   }
 
   initEvents() {
@@ -37,23 +44,20 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     // destructuring
     // todo: remove space later (space is just for testing purposes since jumping is tied to the musical notes)
     const { left, right, space } = this.cursors;
+
     const onFloor = this.body.onFloor();
     const isSpaceJustDown = Phaser.Input.Keyboard.JustDown(space);
 
-    if (left.isDown) {
+    Phaser.Input.Keyboard.create;
+    if (this.isMovingLeft) {
       this.setVelocityX(-this.playerSpeed);
       this.setFlipX(true);
-    } else if (right.isDown) {
+    } else if (this.isMovingRight) {
       this.setVelocityX(this.playerSpeed);
       this.setFlipX(false);
     } else {
       // no speed since player is idle
       this.setVelocityX(0);
-    }
-
-    if (isSpaceJustDown && (onFloor || this.jumpCount < this.consecJumps)) {
-      this.setVelocityY(-this.playerSpeed * 1.65);
-      this.jumpCount++;
     }
 
     if (onFloor) {
@@ -66,5 +70,59 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         ? this.play("run", true)
         : this.play("idle", true)
       : this.play("jump", true);
+  }
+
+  handleKeyInput(event) {
+    let keyCombosList = [
+      {
+        name: "Jump",
+        keyCombo: ["bnm"],
+      },
+
+      {
+        name: "Left",
+        keyCombo: ["cxz"],
+      },
+
+      {
+        name: "Right",
+        keyCombo: ["zxc"],
+      },
+
+      {
+        name: "Stop",
+        keyCombo: ["g"],
+      },
+    ];
+
+    this.currentCombo += event.key;
+    console.log(this.currentCombo);
+
+    for (const combo of keyCombosList) {
+      if (this.currentCombo.endsWith(combo.keyCombo)) {
+        switch (combo.name) {
+          default:
+            break;
+          case "Jump":
+            this.setVelocityY(-this.playerSpeed * 1.65);
+
+            break;
+          case "Left":
+            this.isMovingLeft = true;
+            this.isMovingRight = false;
+            break;
+          case "Right":
+            this.isMovingRight = true;
+            this.isMovingLeft = false;
+            break;
+          case "Stop":
+            this.isMovingRight = false;
+            this.isMovingLeft = false;
+            break;
+        }
+
+        this.currentCombo = "";
+      }
+    }
   }
 }
