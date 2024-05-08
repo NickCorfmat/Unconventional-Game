@@ -26,7 +26,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.consecJumps = 1;
     this.body.setGravityY(this.gravity);
     this.setCollideWorldBounds(true);
-
+    this.setOrigin(0.5, 1);
     // should get the cursors (left, right keys, so on so forth)
     this.cursors = this.scene.input.keyboard.createCursorKeys();
 

@@ -7,8 +7,9 @@ class Play extends Phaser.Scene {
   create() {
     const map = this.createMap();
     const layers = this.createLayers(map);
+    const playerZones = this.getPlrZones(layers.playerZones);
 
-    const player = this.createPlayer();
+    const player = this.createPlayer(playerZones.start);
 
     this.createPlayerColliders(player, {
       colliders: {
@@ -16,6 +17,7 @@ class Play extends Phaser.Scene {
       },
     });
 
+    this.createEndOfLevel(playerZones.end, player);
     this.setupFollowUpCameraOn(player);
   }
 
@@ -31,15 +33,16 @@ class Play extends Phaser.Scene {
     const platformColliders = map.createLayer("platformer_collider", tileset);
     const environment = map.createLayer("environment", tileset);
     const platforms = map.createLayer("platforms", tileset);
+    const playerZones = map.getObjectLayer("player_zones");
 
     // Only tiles with index more than 0 will be collideable
     platformColliders.setCollisionByProperty({ collides: true });
 
-    return { environment, platformColliders };
+    return { environment, platforms, platformColliders, playerZones };
   }
 
-  createPlayer() {
-    return new Player(this, 100, 250).setScale(2);
+  createPlayer(start) {
+    return new Player(this, start.x, start.y).setScale(2);
     // return player;
   }
 
@@ -52,5 +55,26 @@ class Play extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, width + mapOffset, height + 150);
     this.cameras.main.setBounds(0, 0, width + mapOffset, height).setZoom(zoomF);
     this.cameras.main.startFollow(player);
+  }
+
+  getPlrZones(playerZonesLayer) {
+    const playerZones = playerZonesLayer.objects;
+    return {
+      start: playerZones.find((zones) => zones.name === "startZone"),
+      end: playerZones.find((zones) => zones.name === "endZone"),
+    };
+  }
+
+  createEndOfLevel(end, player) {
+    const endOfLevel = this.physics.add
+      .sprite(end.x, end.y, "end")
+      .setSize(5, this.config.height)
+      .setAlpha(0)
+      .setOrigin(0.5, 1);
+
+    const endOfLvlOverlap = this.physics.add.overlap(player, endOfLevel, () => {
+      endOfLvlOverlap.active = false;
+      console.log("Victory!");
+    });
   }
 }
