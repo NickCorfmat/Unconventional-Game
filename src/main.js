@@ -1,13 +1,15 @@
 "use strict";
 
-const WIDTH = 1280;
+const MAP_WIDTH = 1600;
+
+const WIDTH = document.body.offsetWidth;
 const HEIGHT = 600;
-const PLAYER_POSITION = { x: WIDTH * 0.1, y: HEIGHT / 2 }; // change later
 
 const SHARED_CONFIG = {
+  mapOffset: MAP_WIDTH > WIDTH ? MAP_WIDTH - WIDTH : 0,
   width: WIDTH,
   height: HEIGHT,
-  startPosition: PLAYER_POSITION,
+  zoomFactor: 1.25,
 };
 
 const Scenes = [Preload, Play];
