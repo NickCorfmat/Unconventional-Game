@@ -4,7 +4,8 @@ class Preload extends Phaser.Scene {
   }
 
   preload() {
-    this.load.tilemapTiledJSON("map", "assets/Split3MapEnv.json");
+    this.load.tilemapTiledJSON("stage_1", "assets/Split3Map_Stage_1.json");
+    this.load.tilemapTiledJSON("stage_2", "assets/Split3Map_Stage_2.json");
     this.load.image("tiles-1", "assets/main_lev_build_1.png");
     this.load.image("tiles-2", "assets/main_lev_build_2.png");
     // this.load.image("player", "assets/player/movement/sprite_000.png");
