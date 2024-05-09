@@ -14,6 +14,7 @@ class Play extends Phaser.Scene {
     this.createPlayerColliders(player, {
       colliders: {
         platformColliders: layers.platformColliders,
+        traps: layers.traps,
       },
     });
 
@@ -34,11 +35,12 @@ class Play extends Phaser.Scene {
     const environment = map.createLayer("environment", tileset);
     const platforms = map.createLayer("platforms", tileset);
     const playerZones = map.getObjectLayer("player_zones");
+    const traps = map.createLayer("traps", tileset);
 
     // Only tiles with index more than 0 will be collideable
     platformColliders.setCollisionByProperty({ collides: true });
-
-    return { environment, platforms, platformColliders, playerZones };
+    traps.setCollisionByExclusion(-1);
+    return { environment, platforms, platformColliders, playerZones, traps };
   }
 
   createPlayer(start) {
@@ -46,8 +48,13 @@ class Play extends Phaser.Scene {
     // return player;
   }
 
+  onHit(entity, source) {
+    entity.takesHit(source);
+  }
+
   createPlayerColliders(player, { colliders }) {
     player.addCollider(colliders.platformColliders);
+    player.addCollider(colliders.traps, this.onHit);
   }
 
   setupFollowUpCameraOn(player) {

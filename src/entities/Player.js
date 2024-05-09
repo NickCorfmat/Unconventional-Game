@@ -20,15 +20,25 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.currentCombo = "";
     this.scene.input.keyboard.on("keydown", this.handleKeyInput, this);
 
+    this.health = 100;
     this.gravity = 500;
     this.playerSpeed = 225;
     this.jumpCount = 0;
     this.consecJumps = 1;
+    this.hasBeenHit = false;
+
     this.body.setGravityY(this.gravity);
     this.setCollideWorldBounds(true);
     this.setOrigin(0.5, 1);
     // should get the cursors (left, right keys, so on so forth)
     this.cursors = this.scene.input.keyboard.createCursorKeys();
+    this.hp = new Healthbar(
+      this.scene,
+      this.scene.config.leftTopCorner.x + 5,
+      this.scene.config.leftTopCorner.y + 5,
+      4,
+      this.health
+    );
 
     // animations
     createAnimations(this.scene.anims);
@@ -126,5 +136,21 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.currentCombo = "";
       }
     }
+  }
+
+  takesHit(source) {
+    if (this.hasBeenHit) {
+      return;
+    }
+
+    this.hasBeenHit = true;
+    this.health -= source.damage || source.properties.damage || 0;
+    this.hp.decrease(this.health);
+
+    // source.deliversHit && source.deliversHit(this);
+
+    this.scene.time.delayedCall(1000, () => {
+      this.hasBeenHit = false;
+    });
   }
 }
