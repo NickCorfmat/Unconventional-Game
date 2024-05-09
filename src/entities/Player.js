@@ -144,6 +144,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     this.hasBeenHit = true;
+    // source.damage will be for enemy NPCs, source.properties.damage is for the tile (since this is done via the Tiled)
     this.health -= source.damage || source.properties.damage || 0;
     this.hp.decrease(this.health);
 
