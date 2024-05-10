@@ -18,6 +18,7 @@ class Play extends Phaser.Scene {
       },
     });
 
+    this.createHUD();
     this.createEndOfStage(playerZones.end, player);
     this.setupFollowUpCameraOn(player);
 
@@ -29,11 +30,23 @@ class Play extends Phaser.Scene {
 
     this.input.keyboard.on("keydown", (input) => {
       if (input.key === "z") {
-        this.sound.play("piano_C");
+        this.sound.play("piano_C", { volume: 0.5 });
+        this.tintKey("z");
       } else if (input.key === "x") {
-        this.sound.play("piano_D");
-      } else {
-        this.sound.play("piano_E");
+        this.sound.play("piano_D", { volume: 0.5 });
+        this.tintKey("x");
+      } else if (input.key === "c") {
+        this.sound.play("piano_E", { volume: 0.5 });
+        this.tintKey("c");
+      } else if (input.key === "b") {
+        //this.sound.play("", {volume: 0.5});
+        this.tintKey("b");
+      } else if (input.key === "n") {
+        //this.sound.play("", {volume: 0.5});
+        this.tintKey("n");
+      } else if (input.key === "m") {
+        //this.sound.play("", {volume: 0.5});
+        this.tintKey("m");
       }
     });
   }
@@ -112,6 +125,131 @@ class Play extends Phaser.Scene {
       this.scene.restart({ gameStatus: "STAGE_COMPLETED" });
       console.log("Victory!");
     });
+  }
+
+  createHUD() {
+    const LEFT_KEY = this.add
+      .sprite(200, 730, "cxz")
+      .setOrigin(0.5)
+      .setScale(3);
+
+    const RIGHT_KEY = this.add
+      .sprite(this.config.width - 200, 730, "zxc")
+      .setOrigin(0.5)
+      .setScale(3);
+
+    const JUMP = this.add
+      .sprite(this.config.width / 2, 750, "bnm")
+      .setOrigin(0.5)
+      .setScale(3);
+
+    this.add.bitmapText(200, 810, "pixel-font", "LEFT", 48).setOrigin(0.5);
+    this.add
+      .bitmapText(this.config.width / 2, 830, "pixel-font", "JUMP", 48)
+      .setOrigin(0.5);
+    this.add
+      .bitmapText(this.config.width - 200, 810, "pixel-font", "RIGHT", 48)
+      .setOrigin(0.5);
+  }
+
+  tintKey(key) {
+    switch (key) {
+      case "z":
+        const Z_1 = this.add
+          .sprite(271, 729, "key-sprites", "Z")
+          .setOrigin(0.5)
+          .setScale(3)
+          .setTint(0xff9e7a);
+
+        const Z_2 = this.add
+          .sprite(this.config.width - 272, 729, "key-sprites", "Z")
+          .setOrigin(0.5)
+          .setScale(3)
+          .setTint(0xff9e7a);
+
+        this.time.delayedCall(300, () => {
+          Z_1.destroy();
+          Z_2.destroy();
+        });
+
+        break;
+      case "x":
+        const X_1 = this.add
+          .sprite(200, 729, "key-sprites", "X")
+          .setOrigin(0.5)
+          .setScale(3)
+          .setTint(0xff9e7a);
+
+        const X_2 = this.add
+          .sprite(this.config.width - 200, 729, "key-sprites", "X")
+          .setOrigin(0.5)
+          .setScale(3)
+          .setTint(0xff9e7a);
+
+        this.time.delayedCall(300, () => {
+          X_1.destroy();
+          X_2.destroy();
+        });
+
+        break;
+      case "c":
+        const C_1 = this.add
+          .sprite(127, 729, "key-sprites", "C")
+          .setOrigin(0.5)
+          .setScale(3)
+          .setTint(0xff9e7a);
+
+        const C_2 = this.add
+          .sprite(this.config.width - 127, 729, "key-sprites", "C")
+          .setOrigin(0.5)
+          .setScale(3)
+          .setTint(0xff9e7a);
+
+        this.time.delayedCall(300, () => {
+          C_1.destroy();
+          C_2.destroy();
+        });
+
+        break;
+      case "b":
+        const B = this.add
+          .sprite(this.config.width / 2 - 74, 750, "key-sprites", "B")
+          .setOrigin(0.5)
+          .setScale(3)
+          .setTint(0xff9e7a);
+
+        this.time.delayedCall(300, () => {
+          B.destroy();
+        });
+
+        break;
+      case "n":
+        const N = this.add
+          .sprite(this.config.width / 2, 750, "key-sprites", "N")
+          .setOrigin(0.5)
+          .setScale(3)
+          .setTint(0xff9e7a);
+
+        this.time.delayedCall(300, () => {
+          N.destroy();
+        });
+
+        break;
+      case "m":
+        const M = this.add
+          .sprite(this.config.width / 2 + 73, 750, "key-sprites", "M")
+          .setOrigin(0.5)
+          .setScale(3)
+          .setTint(0xff9e7a);
+
+        this.time.delayedCall(300, () => {
+          M.destroy();
+        });
+
+        break;
+      default:
+        break;
+    }
   }
 
   update() {}
