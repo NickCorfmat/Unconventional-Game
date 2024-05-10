@@ -12,6 +12,10 @@ class Preload extends Phaser.Scene {
     this.load.audio("piano_C", "assets/piano_C.wav");
     this.load.audio("piano_D", "assets/piano_D.wav");
     this.load.audio("piano_E", "assets/piano_E.wav");
+    this.load.audio("guitar_C", "assets/guitar_C.wav");
+    this.load.audio("guitar_E", "assets/guitar_E.wav");
+    this.load.audio("stop", "/assets/stop.wav");
+    this.load.audio("stop", "/assets/stop.wav");
     // this.load.image("player", "assets/player/movement/sprite_000.png");
 
     this.load.spritesheet("player", "assets/player/playerspritesheet.png", {

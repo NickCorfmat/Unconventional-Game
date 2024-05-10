@@ -39,12 +39,11 @@ class Play extends Phaser.Scene {
   }
 
   createGameEvents() {
-    /*
-    const emitter = new EventEmitter();
-    EventEmitter.on("GAME_OVER", () => {
-      alert("Player has lost the game.");
+    const emitter = EventEmitter.getInstance();
+    emitter.on("GAME_OVER", () => {
+      console.log("Lost!");
+      this.scene.restart({ gameStatus: "GAME_OVER" });
     });
-    */
   }
   createMap() {
     const map = this.make.tilemap({ key: `stage_${this.getCurrentStage()}` });

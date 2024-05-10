@@ -53,6 +53,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   update() {
+    if (this.hasBeenHit || !this.body) {
+      return;
+    }
     // destructuring
     // todo: remove space later (space is just for testing purposes since jumping is tied to the musical notes)
     const { left, right, space } = this.cursors;
@@ -147,11 +150,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.health -= source.damage || source.properties.damage || 0;
 
     if (this.health <= 0) {
-      /*
-      const emitter = new EventEmitter();
+      const emitter = EventEmitter.getInstance();
       emitter.emit("GAME_OVER");
       return;
-      */
     }
 
     this.hasBeenHit = true;
