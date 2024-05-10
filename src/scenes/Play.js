@@ -4,7 +4,7 @@ class Play extends Phaser.Scene {
     this.config = config;
   }
 
-  create() {
+  create({ gameStatus }) {
     const map = this.createMap();
     const layers = this.createLayers(map);
     const playerZones = this.getPlrZones(layers.playerZones);
@@ -18,12 +18,36 @@ class Play extends Phaser.Scene {
       },
     });
 
-    this.createEndOfLevel(playerZones.end, player);
+    this.createEndOfStage(playerZones.end, player);
     this.setupFollowUpCameraOn(player);
+
+    if (gameStatus === "GAME_OVER") {
+      return;
+    }
+
+    this.createGameEvents();
+
+    this.input.keyboard.on("keydown", (input) => {
+      if (input.key === "z") {
+        this.sound.play("piano_C");
+      } else if (input.key === "x") {
+        this.sound.play("piano_D");
+      } else {
+        this.sound.play("piano_E");
+      }
+    });
   }
 
+  createGameEvents() {
+    /*
+    const emitter = new EventEmitter();
+    EventEmitter.on("GAME_OVER", () => {
+      alert("Player has lost the game.");
+    });
+    */
+  }
   createMap() {
-    const map = this.make.tilemap({ key: "stage_2" });
+    const map = this.make.tilemap({ key: `stage_${this.getCurrentStage()}` });
 
     map.addTilesetImage("main_lev_build_1", "tiles-1");
     return map;
@@ -72,16 +96,24 @@ class Play extends Phaser.Scene {
     };
   }
 
-  createEndOfLevel(end, player) {
-    const endOfLevel = this.physics.add
+  getCurrentStage() {
+    return this.registry.get("Stage") || 1;
+  }
+
+  createEndOfStage(end, player) {
+    const endOfStage = this.physics.add
       .sprite(end.x, end.y, "end")
       .setSize(5, this.config.height)
       .setAlpha(0)
       .setOrigin(0.5, 1);
 
-    const endOfLvlOverlap = this.physics.add.overlap(player, endOfLevel, () => {
-      endOfLvlOverlap.active = false;
+    const endOfStgOverlap = this.physics.add.overlap(player, endOfStage, () => {
+      endOfStgOverlap.active = false;
+      this.registry.inc("level", 1);
+      this.scene.restart({ gameStatus: "STAGE_COMPLETED" });
       console.log("Victory!");
     });
   }
+
+  update() {}
 }
