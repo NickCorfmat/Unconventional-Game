@@ -20,6 +20,8 @@ class Preload extends Phaser.Scene {
     this.load.audio("piano_E", "assets/piano_E.wav");
     // this.load.image("player", "assets/player/movement/sprite_000.png");
 
+    this.load.atlas("key-sprites", './assets/keys.png', './assets/keys.json')
+
     this.load.spritesheet("player", "assets/player/playerspritesheet.png", {
       frameWidth: 32,
       frameHeight: 32,
