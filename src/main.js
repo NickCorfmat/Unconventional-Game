@@ -3,7 +3,7 @@
 const MAP_WIDTH = 1600;
 
 const WIDTH = document.body.offsetWidth;
-const HEIGHT = 600;
+const HEIGHT = 900;
 const ZOOM_FACTOR = 1.25;
 
 const SHARED_CONFIG = {

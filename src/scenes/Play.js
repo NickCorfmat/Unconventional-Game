@@ -18,6 +18,7 @@ class Play extends Phaser.Scene {
       },
     });
 
+    this.createHUD()
     this.createEndOfStage(playerZones.end, player);
     this.setupFollowUpCameraOn(player);
 
@@ -29,11 +30,11 @@ class Play extends Phaser.Scene {
 
     this.input.keyboard.on("keydown", (input) => {
       if (input.key === "z") {
-        this.sound.play("piano_C");
+        this.sound.play("piano_C", {volume: 0.5});
       } else if (input.key === "x") {
-        this.sound.play("piano_D");
+        this.sound.play("piano_D", {volume: 0.5});
       } else {
-        this.sound.play("piano_E");
+        this.sound.play("piano_E", {volume: 0.5});
       }
     });
   }
@@ -113,6 +114,27 @@ class Play extends Phaser.Scene {
       this.scene.restart({ gameStatus: "STAGE_COMPLETED" });
       console.log("Victory!");
     });
+  }
+
+  createHUD() {
+    const LEFT_KEY = this.add
+    .sprite(200, 730, "cxz")
+    .setOrigin(0.5)
+    .setScale(3)
+
+    const RIGHT_KEY = this.add
+    .sprite(this.config.width - 200, 730, "zxc")
+    .setOrigin(0.5)
+    .setScale(3)
+
+    const JUMP = this.add
+    .sprite(this.config.width/2, 750, "bnm")
+    .setOrigin(0.5)
+    .setScale(3)
+
+    this.add.bitmapText(200, 810, "pixel-font", "LEFT", 48).setOrigin(0.5)
+    this.add.bitmapText(this.config.width/2, 830, "pixel-font", "JUMP", 48).setOrigin(0.5)
+    this.add.bitmapText(this.config.width - 200, 810, "pixel-font", "RIGHT", 48).setOrigin(0.5)
   }
 
   update() {}

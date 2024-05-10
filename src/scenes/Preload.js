@@ -9,6 +9,12 @@ class Preload extends Phaser.Scene {
     this.load.image("tiles-1", "assets/main_lev_build_1.png");
     this.load.image("tiles-2", "assets/main_lev_build_2.png");
 
+    this.load.image("cxz", "assets/cxz.png")
+    this.load.image("zxc", "assets/zxc.png")
+    this.load.image("bnm", "assets/bnm.png")
+
+    this.load.bitmapFont("pixel-font", "assets/font/pixel_font.png", "assets/font/pixel_font.xml")
+
     this.load.audio("piano_C", "assets/piano_C.wav");
     this.load.audio("piano_D", "assets/piano_D.wav");
     this.load.audio("piano_E", "assets/piano_E.wav");
