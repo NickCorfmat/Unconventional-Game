@@ -56,6 +56,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     if (this.hasBeenHit || !this.body) {
       return;
     }
+
+    // .top should be more accurate (vs y) because it gets top part of the player sprite
+    if (this.getBounds().top > this.scene.config.height) {
+      const emitter = EventEmitter.getInstance();
+      emitter.emit("GAME_OVER");
+    }
     // destructuring
     // todo: remove space later (space is just for testing purposes since jumping is tied to the musical notes)
     const { left, right, space } = this.cursors;
