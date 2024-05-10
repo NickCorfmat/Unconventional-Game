@@ -45,7 +45,7 @@ class Healthbar {
     this.bar.fillRect(x + margin, y + margin, width - margin, height - margin);
 
     const healthWidth = Math.floor(this.value * this.pixelPerHealth);
-    
+
     // bar color
     this.bar.fillStyle(0x51ad52);
 

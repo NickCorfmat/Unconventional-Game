@@ -108,7 +108,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     ];
 
     this.currentCombo += event.key;
-    console.log(this.currentCombo);
+    //console.log(this.currentCombo);
 
     for (const combo of keyCombosList) {
       if (this.currentCombo.endsWith(combo.keyCombo)) {
@@ -143,12 +143,19 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       return;
     }
 
-    this.hasBeenHit = true;
     // source.damage will be for enemy NPCs, source.properties.damage is for the tile (since this is done via the Tiled)
     this.health -= source.damage || source.properties.damage || 0;
-    this.hp.decrease(this.health);
 
-    // source.deliversHit && source.deliversHit(this);
+    if (this.health <= 0) {
+      /*
+      const emitter = new EventEmitter();
+      emitter.emit("GAME_OVER");
+      return;
+      */
+    }
+
+    this.hasBeenHit = true;
+    this.hp.decrease(this.health);
 
     this.scene.time.delayedCall(1000, () => {
       this.hasBeenHit = false;
