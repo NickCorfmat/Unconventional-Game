@@ -109,7 +109,7 @@ class Play extends Phaser.Scene {
   }
 
   getCurrentStage() {
-    return this.registry.get("Stage") || 1;
+    return this.registry.get("stage") || 1;
   }
 
   createEndOfStage(end, player) {
@@ -121,7 +121,7 @@ class Play extends Phaser.Scene {
 
     const endOfStgOverlap = this.physics.add.overlap(player, endOfStage, () => {
       endOfStgOverlap.active = false;
-      this.registry.inc("level", 1);
+      this.registry.inc("stage", 1);
       this.scene.restart({ gameStatus: "STAGE_COMPLETED" });
       console.log("Victory!");
     });
