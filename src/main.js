@@ -19,9 +19,17 @@ const SHARED_CONFIG = {
     x: WIDTH / ZOOM_FACTOR + (WIDTH - (WIDTH - ZOOM_FACTOR)) / 2,
     y: HEIGHT / (HEIGHT - ZOOM_FACTOR) / 2,
   },
+  lastStage: 2,
 };
 
-const Scenes = [Preload, MenuScene, TutorialScene, CreditsScene, Play];
+const Scenes = [
+  Preload,
+  MenuScene,
+  TutorialScene,
+  CreditsScene,
+  Play,
+  FinishedScene,
+];
 const createScene = (Scene) => new Scene(SHARED_CONFIG);
 const initScenes = () => Scenes.map(createScene);
 

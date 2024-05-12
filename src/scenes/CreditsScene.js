@@ -6,7 +6,8 @@ class CreditsScene extends BaseScene {
   create() {
     super.create();
 
-    const creditsText = "Elthen - Character Sprites\n";
+    const creditsText =
+      "Elthen - Character Sprites\nSzadi art.- Environment Assets/Sprites";
 
     const textOptions = {
       ...this.fontOptions,
