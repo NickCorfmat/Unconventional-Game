@@ -13,6 +13,8 @@ class Preload extends Phaser.Scene {
     this.load.image("zxc", "assets/zxc.png");
     this.load.image("bnm", "assets/bnm.png");
 
+    this.load.image("menu-bg", "assets/background_0.png");
+    this.load.image("backbutton", "assets/backbutton.png");
     this.load.bitmapFont(
       "pixel-font",
       "assets/font/pixel_font.png",
@@ -42,7 +44,7 @@ class Preload extends Phaser.Scene {
 
   startGame() {
     this.registry.set("stage", 1);
-    this.scene.start("PlayScene");
+    this.scene.start("MenuScene");
   }
   /*
   create() {
