@@ -137,25 +137,33 @@ class Play extends Phaser.Scene {
     const LEFT_KEY = this.add
       .sprite(200, 730, "cxz")
       .setOrigin(0.5)
-      .setScale(3);
+      .setScale(3)
+      .setScrollFactor(0);
 
     const RIGHT_KEY = this.add
       .sprite(this.config.width - 200, 730, "zxc")
       .setOrigin(0.5)
-      .setScale(3);
+      .setScale(3)
+      .setScrollFactor(0);
 
     const JUMP = this.add
       .sprite(this.config.width / 2, 750, "bnm")
       .setOrigin(0.5)
-      .setScale(3);
+      .setScale(3)
+      .setScrollFactor(0);
 
-    this.add.bitmapText(200, 810, "pixel-font", "LEFT", 48).setOrigin(0.5);
+    this.add
+      .bitmapText(200, 810, "pixel-font", "LEFT", 48)
+      .setOrigin(0.5)
+      .setScrollFactor(0);
     this.add
       .bitmapText(this.config.width / 2, 830, "pixel-font", "JUMP", 48)
-      .setOrigin(0.5);
+      .setOrigin(0.5)
+      .setScrollFactor(0);
     this.add
       .bitmapText(this.config.width - 200, 810, "pixel-font", "RIGHT", 48)
-      .setOrigin(0.5);
+      .setOrigin(0.5)
+      .setScrollFactor(0);
   }
 
   tintKey(key) {
@@ -165,13 +173,15 @@ class Play extends Phaser.Scene {
           .sprite(271, 729, "key-sprites", "Z")
           .setOrigin(0.5)
           .setScale(3)
-          .setTint(0xff9e7a);
+          .setTint(0xff9e7a)
+          .setScrollFactor(0);
 
         const Z_2 = this.add
           .sprite(this.config.width - 272, 729, "key-sprites", "Z")
           .setOrigin(0.5)
           .setScale(3)
-          .setTint(0xff9e7a);
+          .setTint(0xff9e7a)
+          .setScrollFactor(0);
 
         this.time.delayedCall(300, () => {
           Z_1.destroy();
@@ -184,13 +194,15 @@ class Play extends Phaser.Scene {
           .sprite(200, 729, "key-sprites", "X")
           .setOrigin(0.5)
           .setScale(3)
-          .setTint(0xff9e7a);
+          .setTint(0xff9e7a)
+          .setScrollFactor(0);
 
         const X_2 = this.add
           .sprite(this.config.width - 200, 729, "key-sprites", "X")
           .setOrigin(0.5)
           .setScale(3)
-          .setTint(0xff9e7a);
+          .setTint(0xff9e7a)
+          .setScrollFactor(0);
 
         this.time.delayedCall(300, () => {
           X_1.destroy();
@@ -203,13 +215,15 @@ class Play extends Phaser.Scene {
           .sprite(127, 729, "key-sprites", "C")
           .setOrigin(0.5)
           .setScale(3)
-          .setTint(0xff9e7a);
+          .setTint(0xff9e7a)
+          .setScrollFactor(0);
 
         const C_2 = this.add
           .sprite(this.config.width - 127, 729, "key-sprites", "C")
           .setOrigin(0.5)
           .setScale(3)
-          .setTint(0xff9e7a);
+          .setTint(0xff9e7a)
+          .setScrollFactor(0);
 
         this.time.delayedCall(300, () => {
           C_1.destroy();
@@ -222,7 +236,8 @@ class Play extends Phaser.Scene {
           .sprite(this.config.width / 2 - 74, 750, "key-sprites", "B")
           .setOrigin(0.5)
           .setScale(3)
-          .setTint(0xff9e7a);
+          .setTint(0xff9e7a)
+          .setScrollFactor(0);
 
         this.time.delayedCall(300, () => {
           B.destroy();
@@ -234,7 +249,8 @@ class Play extends Phaser.Scene {
           .sprite(this.config.width / 2, 750, "key-sprites", "N")
           .setOrigin(0.5)
           .setScale(3)
-          .setTint(0xff9e7a);
+          .setTint(0xff9e7a)
+          .setScrollFactor(0);
 
         this.time.delayedCall(300, () => {
           N.destroy();
@@ -246,7 +262,8 @@ class Play extends Phaser.Scene {
           .sprite(this.config.width / 2 + 73, 750, "key-sprites", "M")
           .setOrigin(0.5)
           .setScale(3)
-          .setTint(0xff9e7a);
+          .setTint(0xff9e7a)
+          .setScrollFactor(0);
 
         this.time.delayedCall(300, () => {
           M.destroy();
