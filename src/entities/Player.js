@@ -27,6 +27,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.consecJumps = 1;
     this.hasBeenHit = false;
 
+    this.bounceVelocity = 200;
     this.body.setGravityY(this.gravity);
     this.setCollideWorldBounds(true);
     this.setOrigin(0.5, 1);
@@ -147,6 +148,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
+  bounceOff() {
+    this.isMovingLeft = false;
+    this.isMovingRight = false;
+    this.body.touching.right
+      ? this.setVelocityX(-this.bounceVelocity)
+      : this.setVelocityX(this.bounceVelocity);
+
+    setTimeout(() => this.setVelocityY(-this.bounceVelocity), 0);
+  }
+
   takesHit(source) {
     if (this.hasBeenHit) {
       return;
@@ -162,6 +173,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     this.hasBeenHit = true;
+    this.bounceOff();
+
+    this.scene.time.addEvent({
+      delay: 1000,
+      callback: () => {
+        this.hasBeenHit = false;
+      },
+      loop: false,
+    });
     this.hp.decrease(this.health);
 
     this.scene.time.delayedCall(1000, () => {
