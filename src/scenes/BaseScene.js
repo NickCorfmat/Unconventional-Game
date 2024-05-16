@@ -34,9 +34,8 @@ class BaseScene extends Phaser.Scene {
         this.screenCenter[1] + lastMenuPositionY,
       ];
       menuItem.textObj = this.add
-        .text(...menuPosition, menuItem.text, this.fontOptions)
-        .setOrigin(0.5, 1);
-
+        .bitmapText(...menuPosition, "pixel-font", menuItem.text, 32)
+        .setOrigin(0.5, 1); 
       lastMenuPositionY += this.lineHeight;
       setUpMenuEvents(menuItem);
     });

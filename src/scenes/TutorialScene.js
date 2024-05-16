@@ -15,7 +15,13 @@ class TutorialScene extends BaseScene {
       align: "left",
     };
     this.add
-      .text(...this.screenCenter, tutorialText, textOptions)
+      .bitmapText(
+        this.screenCenter[0],
+        this.screenCenter[1],
+        "pixel-font",
+        tutorialText,
+        30
+      )
       .setOrigin(0.5);
   }
 }

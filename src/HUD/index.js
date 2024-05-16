@@ -5,20 +5,20 @@ class HUD extends Phaser.GameObjects.Container {
 
     const { rightTopCorner } = scene.config;
     this.setPosition(rightTopCorner.x + 100, rightTopCorner.y + 5);
-    // scrollfactor here
+    // scroll factor here
     this.setScrollFactor(0);
 
     this.fontSize = 20;
 
-    // make sure it doesnt appear below the map lol
+    // make sure it doesnt appear below the map
     this.setDepth(5);
     this.setupUI();
   }
 
   // set up initial elements
   setupUI() {
-    const scoreboard = this.createScoreboard();
     const label = this.createLabel("Diamonds");
+    const scoreboard = this.createScoreboard();
 
     this.add([label, scoreboard]);
     this.alignElements();
@@ -26,16 +26,23 @@ class HUD extends Phaser.GameObjects.Container {
 
   // text label
   createLabel(text) {
-    return this.scene.add.text(0, 0, text, {
-      fontSize: `${this.fontSize}px`,
-      fill: "#fff",
-    });
+    return this.scene.add
+      .bitmapText(0, 0, "pixel-font", text, this.fontSize)
+      .setOrigin(0, 0.5);
   }
 
   // scoreboard for text & img
   createScoreboard() {
     const scoreText = this.createText("0");
-    const scoreImage = this.createImage("diamond", scoreText.width + 5, 0, 1.5);
+    const scoreImage = this.createImage(
+      "diamond",
+      scoreText.width + 5,
+      0,
+      1.25
+    );
+
+    scoreText.setOrigin(0, 0.5);
+    scoreImage.setOrigin(0, 0.5);
 
     const scoreContainer = this.scene.add.container(0, 0, [
       scoreText,
@@ -48,19 +55,18 @@ class HUD extends Phaser.GameObjects.Container {
   }
 
   createText(text) {
-    return this.scene.add.text(0, 0, text, {
-      fontSize: `${this.fontSize}px`,
-      fill: "#fff",
-    });
+    return this.scene.add
+      .bitmapText(0, 0, "pixel-font", text, this.fontSize)
+      .setOrigin(0, 0.5);
   }
 
   createImage(key, x, y, scale = 1) {
-    return this.scene.add.image(x, y, key).setOrigin(0).setScale(scale);
+    return this.scene.add.image(x, y, key).setOrigin(0, 0.5).setScale(scale);
   }
 
   // align elements vertically
   alignElements() {
-    let lineHeight = 0;
+    let lineHeight = 20;
     this.list.forEach((item) => {
       item.setPosition(item.x, item.y + lineHeight);
       lineHeight += this.fontSize;

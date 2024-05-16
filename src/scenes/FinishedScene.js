@@ -13,8 +13,15 @@ class FinishedScene extends BaseScene {
       wordWrap: { width: this.config.width - 40 },
       align: "center",
     };
+
     this.add
-      .text(...this.screenCenter, finishedText, textOptions)
+      .bitmapText(
+        this.screenCenter[0],
+        this.screenCenter[1],
+        "pixel-font",
+        finishedText,
+        30
+      )
       .setOrigin(0.5);
   }
 }

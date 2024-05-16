@@ -9,13 +9,14 @@ class CreditsScene extends BaseScene {
     const creditsText =
       "Elthen - Character Sprites\nSzadi art.- Environment Assets/Sprites";
 
-    const textOptions = {
-      ...this.fontOptions,
-      wordWrap: { width: this.config.width - 40 },
-      align: "center",
-    };
     this.add
-      .text(...this.screenCenter, creditsText, textOptions)
+      .bitmapText(
+        this.screenCenter[0],
+        this.screenCenter[1],
+        "pixel-font",
+        creditsText,
+        30
+      )
       .setOrigin(0.5);
   }
 }

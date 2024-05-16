@@ -50,4 +50,25 @@ createAnimations = (anims) => {
     frameRate: 10,
     repeat: -1,
   });
+
+  anims.create({
+    key: "scared",
+    frames: anims.generateFrameNames("player", {
+      start: 183,
+      end: 188,
+    }),
+    frameRate: 5,
+    repeat: -1,
+    yoyo: true,
+  });
+
+  anims.create({
+    key: "sword",
+    frames: anims.generateFrameNames("player", {
+      start: 26,
+      end: 32,
+    }),
+    frameRate: 10,
+    repeat: -1,
+  });
 };
