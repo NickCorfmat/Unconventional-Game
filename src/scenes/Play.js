@@ -42,14 +42,17 @@ class Play extends Phaser.Scene {
         this.sound.play("piano_E", { volume: 0.005 });
         this.tintKey("c");
       } else if (input.key === "b") {
-        //this.sound.play("", {volume: 0.5});
+        this.sound.play("guitar_C", { volume: 0.1 });
         this.tintKey("b");
       } else if (input.key === "n") {
-        //this.sound.play("", {volume: 0.5});
+        this.sound.play("guitar_E", { volume: 0.1 });
         this.tintKey("n");
       } else if (input.key === "m") {
-        //this.sound.play("", {volume: 0.5});
+        this.sound.play("cymbal", { volume: 0.1 });
         this.tintKey("m");
+      } else if (input.key === "g") {
+        this.sound.play("stop", { volume: 0.1 });
+        this.tintKey("g");
       }
     });
   }

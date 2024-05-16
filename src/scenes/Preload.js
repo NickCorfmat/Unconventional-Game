@@ -12,7 +12,7 @@ class Preload extends Phaser.Scene {
     this.load.image("cxz", "assets/cxz.png");
     this.load.image("zxc", "assets/zxc.png");
     this.load.image("bnm", "assets/bnm.png");
-    this.load.image("note", "assets/musicnote.png")
+    this.load.image("note", "assets/musicnote.png");
 
     this.load.image("menu-bg", "assets/background_0.png");
     this.load.image("backbutton", "assets/backbutton.png");
@@ -27,7 +27,7 @@ class Preload extends Phaser.Scene {
     this.load.audio("piano_E", "assets/piano_E.wav");
     this.load.audio("guitar_C", "assets/guitar_C.wav");
     this.load.audio("guitar_E", "assets/guitar_E.wav");
-    this.load.audio("stop", "/assets/stop.wav");
+    this.load.audio("cymbal", "assets/cymbal.wav");
     this.load.audio("stop", "/assets/stop.wav");
     // this.load.image("player", "assets/player/movement/sprite_000.png");
 
