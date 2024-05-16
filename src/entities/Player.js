@@ -6,8 +6,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, "player");
 
-    scene.add.existing(this);
-    scene.physics.add.existing(this);
+    scene.add.existing(this).setDepth(2);
+    scene.physics.add.existing(this).setDepth(2);
 
     // Mixins
     Object.assign(this, collidable);
@@ -40,6 +40,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       4,
       this.health
     );
+    this.emitter = this.scene.add.particles(0, 0, "note", {
+      lifespan: 1000,
+      speed: { min: 50, max: 100 },
+      scale: { start: 1, end: 0 },
+      rotate: { start: 0, end: 10 },
+      alpha: { start: 1, end: 0 },
+      gravityX: 0,
+      gravityY: 0,
+      emitting: false
+    });
 
     // animations
     createAnimations(this.scene.anims);
@@ -127,15 +137,17 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             break;
           case "Jump":
             this.setVelocityY(-this.playerSpeed * 1.65);
-
+            this.emitParticleTrail("jump");
             break;
           case "Left":
             this.isMovingLeft = true;
             this.isMovingRight = false;
+            this.emitParticleTrail("left");
             break;
           case "Right":
             this.isMovingRight = true;
             this.isMovingLeft = false;
+            this.emitParticleTrail("right");
             break;
           case "Stop":
             this.isMovingRight = false;
@@ -145,6 +157,28 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.currentCombo = "";
       }
+    }
+  }
+
+  emitParticleTrail(direction) {
+    switch(direction) {
+      case "jump":
+        this.emitter.gravityY = 1000;
+        this.emitter.emitParticleAt(this.x, this.y - 20, 3);
+        this.emitter.gravityY = 0;
+        break;
+      case "left":
+        this.emitter.gravityX = 300;
+        this.emitter.emitParticleAt(this.x, this.y - 20, 3);
+        this.emitter.gravityX = 0;
+        break;
+      case "right":
+        this.emitter.gravityX = -300;
+        this.emitter.emitParticleAt(this.x, this.y - 20, 3);
+        this.emitter.gravityX = 0;
+        break;
+      default:
+        break;
     }
   }
 

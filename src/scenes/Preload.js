@@ -12,6 +12,7 @@ class Preload extends Phaser.Scene {
     this.load.image("cxz", "assets/cxz.png");
     this.load.image("zxc", "assets/zxc.png");
     this.load.image("bnm", "assets/bnm.png");
+    this.load.image("note", "assets/musicnote.png")
 
     this.load.image("menu-bg", "assets/background_0.png");
     this.load.image("backbutton", "assets/backbutton.png");
