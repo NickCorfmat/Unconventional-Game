@@ -5,16 +5,19 @@ class Play extends Phaser.Scene {
   }
 
   create({ gameStatus }) {
+    this.score = 0;
+
     const map = this.createMap();
     const layers = this.createLayers(map);
     const playerZones = this.getPlrZones(layers.playerZones);
-
+    const collectables = this.createCollectables(layers.collectables);
     const player = this.createPlayer(playerZones.start);
 
     this.createPlayerColliders(player, {
       colliders: {
         platformColliders: layers.platformColliders,
         traps: layers.traps,
+        collectables,
       },
     });
 
@@ -30,13 +33,13 @@ class Play extends Phaser.Scene {
 
     this.input.keyboard.on("keydown", (input) => {
       if (input.key === "z") {
-        this.sound.play("piano_C", { volume: 0.5 });
+        this.sound.play("piano_C", { volume: 0.005 });
         this.tintKey("z");
       } else if (input.key === "x") {
-        this.sound.play("piano_D", { volume: 0.5 });
+        this.sound.play("piano_D", { volume: 0.005 });
         this.tintKey("x");
       } else if (input.key === "c") {
-        this.sound.play("piano_E", { volume: 0.5 });
+        this.sound.play("piano_E", { volume: 0.005 });
         this.tintKey("c");
       } else if (input.key === "b") {
         //this.sound.play("", {volume: 0.5});
@@ -68,15 +71,24 @@ class Play extends Phaser.Scene {
   createLayers(map) {
     const tileset = map.getTileset("main_lev_build_1");
     const platformColliders = map.createLayer("platformer_collider", tileset);
-    const environment = map.createLayer("environment", tileset);
+    // dont change the setDepth -> makes the diamonds in front of the bg environment
+    const environment = map.createLayer("environment", tileset).setDepth(-2);
     const platforms = map.createLayer("platforms", tileset);
     const playerZones = map.getObjectLayer("player_zones");
     const traps = map.createLayer("traps", tileset);
+    const collectables = map.getObjectLayer("collectables");
 
     // Only tiles with index more than 0 will be collideable
     platformColliders.setCollisionByProperty({ collides: true });
     traps.setCollisionByExclusion(-1);
-    return { environment, platforms, platformColliders, playerZones, traps };
+    return {
+      environment,
+      platforms,
+      platformColliders,
+      playerZones,
+      traps,
+      collectables,
+    };
   }
 
   createPlayer(start) {
@@ -88,9 +100,18 @@ class Play extends Phaser.Scene {
     entity.takesHit(source);
   }
 
+  onCollect(entity, collectable) {
+    //console.log("collecting");
+    this.score += collectable.score;
+    console.log(this.score);
+    // 1st arg disables the collectable, 2nd arg hides the collectable
+    collectable.disableBody(true, true);
+  }
+
   createPlayerColliders(player, { colliders }) {
     player.addCollider(colliders.platformColliders);
     player.addCollider(colliders.traps, this.onHit);
+    player.addOverlap(colliders.collectables, this.onCollect, this);
   }
 
   setupFollowUpCameraOn(player) {
@@ -131,6 +152,14 @@ class Play extends Phaser.Scene {
       this.scene.restart({ gameStatus: "STAGE_COMPLETED" });
       console.log("Victory!");
     });
+  }
+
+  createCollectables(collectableLayer) {
+    // this is a group to place all of the diamonds (from the tiled map)
+    const collectables = new Collectables(this).setDepth(-1);
+
+    collectables.addFromLayer(collectableLayer);
+    return collectables;
   }
 
   createHUD() {
