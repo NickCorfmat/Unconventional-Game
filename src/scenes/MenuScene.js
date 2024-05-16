@@ -43,26 +43,14 @@ class MenuScene extends BaseScene {
   }
 
   update() {
-    this.playerCrying.body.setAccelerationX(
-      this.playerCrying.x < game.config.width / 2 ? 50 : -50
-    );
-    this.playerCrying.body.setAccelerationY(
-      this.playerCrying.y >= game.config.height / 2 ? -50 : 50
-    );
+    this.setPlayerAcceleration(this.playerCrying);
+    this.setPlayerAcceleration(this.playerScared);
+    this.setPlayerAcceleration(this.playerAttack);
+  }
 
-    this.playerScared.body.setAccelerationX(
-      this.playerScared.x < game.config.width / 2 ? 50 : -50
-    );
-    this.playerScared.body.setAccelerationY(
-      this.playerScared.y >= game.config.height / 2 ? -50 : 50
-    );
-
-    this.playerAttack.body.setAccelerationX(
-      this.playerAttack.x < game.config.width / 2 ? 50 : -50
-    );
-    this.playerAttack.body.setAccelerationY(
-      this.playerAttack.y >= game.config.height / 2 ? -50 : 50
-    );
+  setPlayerAcceleration(player) {
+    player.body.setAccelerationX(player.x < game.config.width / 2 ? 50 : -50);
+    player.body.setAccelerationY(player.y >= game.config.height / 2 ? -50 : 50);
   }
 
   createCharacter() {
