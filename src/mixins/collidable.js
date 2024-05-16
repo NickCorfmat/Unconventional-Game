@@ -17,6 +17,7 @@ const collidable = {
       null,
       context || this
     );
+
     return this;
   },
 };
