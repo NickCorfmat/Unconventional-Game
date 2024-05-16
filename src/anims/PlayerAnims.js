@@ -40,4 +40,14 @@ createAnimations = (anims) => {
     frameRate: 2,
     repeat: 1,
   });
+
+  anims.create({
+    key: "crying",
+    frames: anims.generateFrameNames("player", {
+      start: 79,
+      end: 81,
+    }),
+    frameRate: 10,
+    repeat: -1,
+  });
 };
