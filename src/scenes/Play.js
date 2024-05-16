@@ -6,7 +6,7 @@ class Play extends Phaser.Scene {
 
   create({ gameStatus }) {
     this.score = 0;
-
+    this.HUD = new HUD(this, 0, 0);
     const map = this.createMap();
     const layers = this.createLayers(map);
     const playerZones = this.getPlrZones(layers.playerZones);
@@ -104,6 +104,8 @@ class Play extends Phaser.Scene {
     //console.log("collecting");
     this.score += collectable.score;
     console.log(this.score);
+    // scoring changed here
+    this.HUD.updateScore(this.score);
     // 1st arg disables the collectable, 2nd arg hides the collectable
     collectable.disableBody(true, true);
   }
@@ -163,6 +165,9 @@ class Play extends Phaser.Scene {
   }
 
   createHUD() {
+    // top HUD
+
+    // bottom HUD (keys)
     const LEFT_KEY = this.add
       .sprite(200, 730, "cxz")
       .setOrigin(0.5)
