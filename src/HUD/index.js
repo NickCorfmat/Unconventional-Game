@@ -4,11 +4,14 @@ class HUD extends Phaser.GameObjects.Container {
     scene.add.existing(this);
 
     const { rightTopCorner } = scene.config;
-    this.setPosition(rightTopCorner.x - 75, rightTopCorner.y + 5);
+    this.setPosition(rightTopCorner.x + 100, rightTopCorner.y + 5);
     // scrollfactor here
     this.setScrollFactor(0);
 
     this.fontSize = 20;
+
+    // make sure it doesnt appear below the map lol
+    this.setDepth(5);
     this.setupUI();
   }
 
