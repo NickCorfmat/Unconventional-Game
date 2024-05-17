@@ -1,11 +1,11 @@
 createEnemyAnimations = (anims) => {
   anims.create({
-    key: "static",
+    key: "floating",
     frames: anims.generateFrameNames("enemy", {
-      start: 0,
-      end: 32,
+      start: 10,
+      end: 15,
     }),
-    frameRate: 30,
+    frameRate: 10,
     repeat: -1,
   });
 };
