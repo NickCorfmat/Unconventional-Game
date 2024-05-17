@@ -66,7 +66,7 @@ class Play extends Phaser.Scene {
 
     // Create and place 10 enemies randomly on the map
     for (let i = 0; i < 10; i++) {
-      const x = Phaser.Math.Between(50, 750); // Assuming a map width of 800
+      const x = Phaser.Math.Between(50, 1550); // Assuming a map width of 800
       const y = Phaser.Math.Between(50, 550); // Assuming a map height of 600
       const enemy = new Enemy(this, x, y, "enemy");
       enemies.add(enemy);
