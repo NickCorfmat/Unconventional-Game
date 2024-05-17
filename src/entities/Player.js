@@ -48,7 +48,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       alpha: { start: 1, end: 0 },
       gravityX: 0,
       gravityY: 0,
-      emitting: false
+      emitting: false,
     });
 
     // animations
@@ -161,7 +161,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   emitParticleTrail(direction) {
-    switch(direction) {
+    switch (direction) {
       case "jump":
         this.emitter.gravityY = 1000;
         this.emitter.emitParticleAt(this.x, this.y - 20, 3);
