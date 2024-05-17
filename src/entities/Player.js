@@ -196,10 +196,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     if (this.hasBeenHit) {
       return;
     }
-
-    const damage = source.damage ? (source.properties.damage || 0) : 0;
     // source.damage will be for enemy NPCs, source.properties.damage is for the tile (since this is done via the Tiled)
-    this.health -= damage
+    this.health -= source.damage ||  (source.properties && source.properties.damage) || 0;
 
     if (this.health <= 0) {
       const emitter = EventEmitter.getInstance();
