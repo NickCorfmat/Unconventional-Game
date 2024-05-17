@@ -48,7 +48,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       alpha: { start: 1, end: 0 },
       gravityX: 0,
       gravityY: 0,
-      emitting: false
+      emitting: false,
     });
 
     // animations
@@ -161,7 +161,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   emitParticleTrail(direction) {
-    switch(direction) {
+    switch (direction) {
       case "jump":
         this.emitter.gravityY = 1000;
         this.emitter.emitParticleAt(this.x, this.y - 20, 3);
@@ -197,9 +197,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       return;
     }
 
-    const damage = source.damage ? (source.properties.damage || 0) : 0;
+    const damage = source.damage ? source.properties.damage || 0 : 0;
     // source.damage will be for enemy NPCs, source.properties.damage is for the tile (since this is done via the Tiled)
-    this.health -= damage
+    this.health -= damage;
 
     if (this.health <= 0) {
       const emitter = EventEmitter.getInstance();
