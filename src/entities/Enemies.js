@@ -1,20 +1,27 @@
-
 class Enemy extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y) {
-        super(scene, x, y, "enemy");
-        this.enemy = scene.physics.add.sprite(x, y, 'enemy');
+    constructor(scene, x, y, texture) {
+        super(scene, x, y, texture);
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.play('static');  // Ensure 'static' animation exists
+        createEnemyAnimations(scene.anims);
+        this.play('floating');
+
+        // Movement attributes
+        this.moveSpeed = 100; // Speed of the enemy movement
+        this.movementDirection = 1; // 1 for down, -1 for up
     }
 
     update() {
-        if (this.y >= this.maxY && this.body.velocity.y > 0) {
-            this.setVelocityY(-this.moveSpeed);
-        } else if (this.y <= this.minY && this.body.velocity.y < 0) {
-            this.setVelocityY(this.moveSpeed);
+        // Correctly handle movement and frame time
+        this.y += this.movementDirection * this.moveSpeed * this.scene.game.loop.delta / 1000;
+
+        // Boundary checks
+        if (this.y >= this.scene.sys.game.config.height - this.height / 2) {
+            this.movementDirection = -1;
+        } else if (this.y <= this.height / 2) {
+            this.movementDirection = 1;
         }
     }
 }

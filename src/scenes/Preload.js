@@ -39,8 +39,8 @@ class Preload extends Phaser.Scene {
     });
 
     this.load.spritesheet("enemy", "assets/enemy/enemy_sheet.png", {
-      frameWidth: 32,
-      frameHeight: 32,
+      frameWidth: 64,
+      frameHeight: 64,
     });
     
 

@@ -2,6 +2,7 @@ class Play extends Phaser.Scene {
   constructor(config) {
     super("PlayScene");
     this.config = config;
+    this.enemies = null;
   }
 
   create({ gameStatus }) {
@@ -12,7 +13,8 @@ class Play extends Phaser.Scene {
     const playerZones = this.getPlrZones(layers.playerZones);
     const collectables = this.createCollectables(layers.collectables);
     const player = this.createPlayer(playerZones.start);
-    const enemies = this.createEnemies();
+    this.enemies = this.createEnemies();
+    const enemies = this.enemies;
 
     this.createPlayerColliders(player, {
       colliders: {
@@ -66,8 +68,8 @@ class Play extends Phaser.Scene {
     for (let i = 0; i < 10; i++) {
       const x = Phaser.Math.Between(50, 750); // Assuming a map width of 800
       const y = Phaser.Math.Between(50, 550); // Assuming a map height of 600
-      const enemy = new Enemy(this, x, y);
-      enemies.add(enemy.enemy);
+      const enemy = new Enemy(this, x, y, "enemy");
+      enemies.add(enemy);
     }  
 
     return enemies;
@@ -329,5 +331,10 @@ class Play extends Phaser.Scene {
     }
   }
 
-  update() {}
-}
+  update(time, delta){
+    this.enemies.children.iterate((enemy) => {
+      enemy.update();
+    });
+    }
+  }
+
