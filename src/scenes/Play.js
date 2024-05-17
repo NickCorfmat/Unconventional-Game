@@ -12,12 +12,14 @@ class Play extends Phaser.Scene {
     const playerZones = this.getPlrZones(layers.playerZones);
     const collectables = this.createCollectables(layers.collectables);
     const player = this.createPlayer(playerZones.start);
+    const enemies = this.createEnemies();
 
     this.createPlayerColliders(player, {
       colliders: {
         platformColliders: layers.platformColliders,
         traps: layers.traps,
         collectables,
+        enemies,
       },
     });
 
@@ -55,6 +57,20 @@ class Play extends Phaser.Scene {
         this.tintKey("g");
       }
     });
+  }
+
+  createEnemies() {
+    const enemies = this.physics.add.group();
+
+    // Create and place 10 enemies randomly on the map
+    for (let i = 0; i < 10; i++) {
+      const x = Phaser.Math.Between(50, 750); // Assuming a map width of 800
+      const y = Phaser.Math.Between(50, 550); // Assuming a map height of 600
+      const enemy = new Enemy(this, x, y);
+      enemies.add(enemy.enemy);
+    }  
+
+    return enemies;
   }
 
   createGameEvents() {
@@ -116,6 +132,7 @@ class Play extends Phaser.Scene {
   createPlayerColliders(player, { colliders }) {
     player.addCollider(colliders.platformColliders);
     player.addCollider(colliders.traps, this.onHit);
+    player.addCollider(colliders.enemies, this.onHit);
     player.addOverlap(colliders.collectables, this.onCollect, this);
   }
 

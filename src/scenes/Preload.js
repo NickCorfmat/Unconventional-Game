@@ -38,6 +38,12 @@ class Preload extends Phaser.Scene {
       frameHeight: 32,
     });
 
+    this.load.spritesheet("enemy", "assets/enemy/enemy_sheet.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    
+
     this.load.once("complete", () => {
       this.startGame();
     });
